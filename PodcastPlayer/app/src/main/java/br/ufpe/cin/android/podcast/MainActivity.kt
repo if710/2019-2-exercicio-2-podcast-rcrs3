@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.ufpe.cin.android.podcast.adapters.PodcastAdapter
+import br.ufpe.cin.android.podcast.dal.ItemFeedDB
+import br.ufpe.cin.android.podcast.dal.dao.ItemFeedDao
 import br.ufpe.cin.android.podcast.tasks.PodcastParserTask
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
 
-        PodcastParserTask(viewAdapter).execute(PODCAST_URL)
+        PodcastParserTask(viewAdapter, ItemFeedDB.getDatabase(this)).execute(PODCAST_URL)
     }
 
     companion object {
