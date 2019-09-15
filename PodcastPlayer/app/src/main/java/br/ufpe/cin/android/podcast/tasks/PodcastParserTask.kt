@@ -13,15 +13,14 @@ import java.io.IOException
 class PodcastParserTask(private val adapter: PodcastAdapter, private val db: ItemFeedDB) :
     AsyncTask<String, Int, List<ItemFeed>>() {
     override fun doInBackground(vararg parameters: String?): List<ItemFeed>? {
-        return try {
+        try {
             val xml = DownloadXml().download(parameters[0]!!)
             db.itemFeedDao().insert(Parser.parse(xml))
-            Parser.parse(xml)
         } catch (e: IOException) {
             Log.e(CONNECTION_TAG, "Could not get list of episodes from the xml")
-
-            db.itemFeedDao().selectAll()
         }
+
+        return db.itemFeedDao().selectAll()
     }
 
     // Update list of episodes after downloading it
