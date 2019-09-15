@@ -116,6 +116,7 @@ object Parser {
                 description = readData(parser, "description")
             } else if (name == "enclosure") {
                 downloadUrl = parser.getAttributeValue(null, "url")
+                parser.next()
             } else {
                 skip(parser)
             }
